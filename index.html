@@ -669,6 +669,13 @@
         pointer-events: none;
         user-select: none;
       }
+      .press-me {
+        margin-left: 10px;
+        margin-top: 5px;
+        font-size: 0.5rem;
+        color: var(--muted);
+        align-self: center;
+      }
     </style>
   </head>
   <body>
@@ -686,6 +693,7 @@
         <div class="photo-frame" onclick="cyclePhoto()" style="cursor: pointer">
           <img id="landing-photo" src="./public/me/1.png" alt="Jena" />
         </div>
+        <div class="press-me">Drück Mich!</div>
       </div>
 
       <div class="btn-group">
@@ -969,6 +977,7 @@
       <div class="page-header">
         <button class="back-btn" onclick="show('information')">←</button>
         <div class="page-title">Gäste-Weltkarte</div>
+        <div class="press-me">Wähle einen Punkt aus</div>
       </div>
 
       <div style="width: 100%; max-width: 500px; padding: 0 0 2rem">
