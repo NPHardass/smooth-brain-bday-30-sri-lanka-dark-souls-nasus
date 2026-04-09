@@ -1,0 +1,2413 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Jena's 30. Geburtstag 🎉</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      :root {
+        --cyan: #3aabcf;
+        --coral: #c4527a;
+        --yellow: #d4a843;
+        --bg: #fafaf8;
+        --text: #2e2b2b;
+        --muted: #7a756f;
+        --card: #ffffff;
+        --border: #ece9e3;
+      }
+
+      html,
+      body {
+        height: 100%;
+        font-family: "DM Sans", sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        overflow-x: hidden;
+      }
+
+      .page {
+        display: none;
+        min-height: 100vh;
+      }
+      .page.active {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      /* ── LANDING ── */
+      #home {
+        justify-content: space-between;
+        padding: 2.5rem 1.5rem 2.5rem;
+      }
+
+      .top-header {
+        text-align: center;
+        animation: fadeDown 0.5s ease both;
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .top-header h1 {
+        font-family: "DM Serif Display", serif;
+        font-size: clamp(2.6rem, 11vw, 4.6rem);
+        line-height: 1.15;
+        display: inline-block;
+        transform: rotate(-3deg);
+      }
+      .h1-jenas {
+        color: var(--cyan);
+      }
+      .h1-30 {
+        color: var(--coral);
+      }
+      .h1-geburt {
+        color: var(--coral);
+      }
+
+      /* ── PHOTO ── */
+      .photo-wrap {
+        position: relative;
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        animation: fadeUp 0.6s ease 0.15s both;
+      }
+      .photo-frame {
+        width: 200px;
+        height: 270px;
+        border-radius: 120px 120px 80px 80px;
+        background: linear-gradient(175deg, #cceef7 0%, #f5c8c0 100%);
+        overflow: hidden;
+        position: relative;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+      }
+      .photo-frame img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: top center;
+      }
+      .photo-placeholder {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-end;
+        padding-bottom: 12px;
+      }
+      .sil-head {
+        width: 66px;
+        height: 66px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.45);
+        margin-bottom: -2px;
+      }
+      .sil-body {
+        width: 96px;
+        height: 120px;
+        border-radius: 50% 50% 30% 30% / 30% 30% 50% 50%;
+        background: rgba(255, 255, 255, 0.32);
+      }
+      /* ── BUTTONS ── */
+      .btn-group {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.85rem;
+        width: 100%;
+        max-width: 420px;
+        padding: 0 0.5rem;
+        animation: fadeUp 0.5s ease 0.3s both;
+      }
+      .btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        padding: 0 0.75rem;
+        border: none;
+        border-radius: 12px;
+        font-family: "DM Sans", sans-serif;
+        font-size: 0.9rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition:
+          transform 0.15s,
+          box-shadow 0.15s;
+        text-align: center;
+        line-height: 1.25;
+        min-height: 72px;
+      }
+      .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+      }
+      .btn:active {
+        transform: scale(0.97);
+      }
+      .btn-program {
+        background: var(--cyan);
+        color: #fff;
+      }
+      .btn-food {
+        background: var(--coral);
+        color: #fff;
+      }
+      .btn-home {
+        background: var(--cyan);
+        color: #fff;
+      }
+      .btn-misc {
+        background: var(--coral);
+        color: #fff;
+      }
+
+      /* ── INNER PAGES ── */
+      #programm,
+      #food,
+      #heimweg,
+      #sonstiges {
+        padding: 0 1.5rem 3rem;
+        align-items: stretch;
+        max-width: 500px;
+        margin: 0 auto;
+        width: 100%;
+      }
+      .page-header {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        background: #fafaf8;
+        padding: 1.2rem 0 1rem;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        width: 100%;
+        margin-bottom: 1.8rem;
+        border-bottom: 1px solid var(--border);
+      }
+      .back-btn {
+        background: none;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        width: 38px;
+        height: 38px;
+        font-size: 1rem;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--muted);
+        transition: background 0.15s;
+        flex-shrink: 0;
+      }
+      .back-btn:hover {
+        background: var(--border);
+      }
+      .page-title {
+        font-family: "DM Serif Display", serif;
+        font-size: clamp(1.5rem, 5vw, 2rem);
+        color: var(--text);
+      }
+
+      /* ── TIMELINE ── */
+      .timeline {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+      }
+      .tl-item {
+        display: flex;
+        gap: 1rem;
+        align-items: flex-start;
+      }
+      .tl-time {
+        font-size: 0.78rem;
+        font-weight: 600;
+        color: var(--muted);
+        min-width: 48px;
+        padding-top: 1rem;
+        text-align: right;
+      }
+      .tl-line {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .tl-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: var(--cyan);
+        margin-top: 1.1rem;
+        flex-shrink: 0;
+      }
+      .tl-connector {
+        flex: 1;
+        width: 1px;
+        background: var(--border);
+        min-height: 16px;
+      }
+      .tl-card {
+        flex: 1;
+        padding: 0.9rem 0 1rem 0.2rem;
+        border-bottom: 1px solid var(--border);
+      }
+      .tl-item:last-child .tl-card {
+        border-bottom: none;
+      }
+      .tl-card .emoji {
+        font-size: 1.1rem;
+      }
+      .tl-card h3 {
+        font-size: 0.97rem;
+        font-weight: 600;
+        color: var(--text);
+        margin: 0.2rem 0;
+      }
+      .tl-card p {
+        font-size: 0.85rem;
+        color: var(--muted);
+        line-height: 1.45;
+      }
+
+      /* ── FOOD GRID ── */
+      .food-section {
+        margin-bottom: 2rem;
+        width: 100%;
+      }
+      .food-section-title {
+        font-family: "DM Serif Display", serif;
+        font-size: 1.3rem;
+        color: var(--text);
+        margin-bottom: 0.9rem;
+      }
+
+      .food-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.8rem;
+      }
+
+      /* card is a button when it has sub-items */
+      .food-card {
+        background: var(--card);
+        border-radius: 1.2rem;
+        padding: 1rem;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+        text-align: center;
+        border: 1px solid var(--border);
+        cursor: default;
+      }
+      .food-card.expandable {
+        cursor: pointer;
+        transition:
+          box-shadow 0.15s,
+          transform 0.15s;
+      }
+      .food-card.expandable:hover {
+        box-shadow: 0 4px 18px rgba(0, 0, 0, 0.1);
+        transform: translateY(-2px);
+      }
+      .food-card.expandable:active {
+        transform: scale(0.97);
+      }
+
+      .food-card .f-emoji {
+        font-size: 2rem;
+      }
+      .food-card h4 {
+        font-size: 0.92rem;
+        font-weight: 700;
+        margin: 0.4rem 0 0.15rem;
+        color: var(--text);
+      }
+      .food-card p {
+        font-size: 0.78rem;
+        color: var(--muted);
+        line-height: 1.35;
+      }
+
+      .expand-hint {
+        display: inline-block;
+        margin-top: 0.4rem;
+        font-size: 0.7rem;
+        color: var(--cyan);
+        font-weight: 600;
+        letter-spacing: 0.04em;
+      }
+
+      /* ── HEIMWEG CARDS ── */
+      .heimweg-list {
+        display: flex;
+        flex-direction: column;
+        gap: 0.9rem;
+        width: 100%;
+      }
+
+      .heimweg-card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        padding: 1.1rem 1.2rem;
+        display: flex;
+        align-items: flex-start;
+        gap: 1rem;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      }
+
+      .heimweg-icon {
+        font-size: 1.8rem;
+        flex-shrink: 0;
+        width: 44px;
+        height: 44px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--bg);
+        border: 1px solid var(--border);
+      }
+
+      .heimweg-body {
+        flex: 1;
+      }
+      .heimweg-body h3 {
+        font-size: 0.97rem;
+        font-weight: 700;
+        color: var(--text);
+        margin-bottom: 0.2rem;
+      }
+      .heimweg-body p {
+        font-size: 0.83rem;
+        color: var(--muted);
+        line-height: 1.45;
+      }
+      .heimweg-tag {
+        display: inline-block;
+        margin-top: 0.45rem;
+        font-size: 0.72rem;
+        font-weight: 600;
+        padding: 0.18rem 0.55rem;
+        border-radius: 20px;
+        background: #e0f4f9;
+        color: var(--cyan);
+        filter: brightness(0.9);
+      }
+      .heimweg-tag.tag-coral {
+        background: #f9e4ed;
+        color: var(--coral);
+      }
+      .heimweg-tag.tag-yellow {
+        background: #fdf6e3;
+        color: var(--yellow);
+        filter: brightness(0.85);
+      }
+      .heimweg-tag.tag-green {
+        background: #edf7f1;
+        color: #4aaa78;
+      }
+
+      /* ── SONSTIGES INFO CARDS ── */
+      .info-list {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+        width: 100%;
+      }
+      .info-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 1rem;
+        padding: 1.1rem 0;
+        border-bottom: 1px solid var(--border);
+      }
+      .info-item:last-child {
+        border-bottom: none;
+      }
+      .info-icon {
+        font-size: 1.4rem;
+        flex-shrink: 0;
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
+        background: var(--bg);
+        border: 1px solid var(--border);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .info-body h3 {
+        font-size: 0.97rem;
+        font-weight: 700;
+        color: var(--text);
+        margin-bottom: 0.2rem;
+      }
+      .info-body p {
+        font-size: 0.83rem;
+        color: var(--muted);
+        line-height: 1.5;
+      }
+      .info-body a {
+        color: var(--cyan);
+        text-decoration: none;
+        font-weight: 600;
+      }
+      .info-body a:hover {
+        text-decoration: underline;
+      }
+
+      /* ── MODAL / DRAWER ── */
+      .modal-backdrop {
+        display: none;
+        position: fixed;
+        inset: 0;
+        z-index: 100;
+        background: rgba(0, 0, 0, 0.35);
+        align-items: flex-end;
+        justify-content: center;
+      }
+      .modal-backdrop.open {
+        display: flex;
+      }
+
+      .modal {
+        background: var(--bg);
+        border-radius: 20px 20px 0 0;
+        padding: 1.5rem 1.5rem 2.5rem;
+        width: 100%;
+        max-width: 500px;
+        animation: slideUp 0.25s ease both;
+      }
+
+      .modal-handle {
+        width: 36px;
+        height: 4px;
+        border-radius: 2px;
+        background: var(--border);
+        margin: 0 auto 1.2rem;
+      }
+      .modal-title {
+        font-family: "DM Serif Display", serif;
+        font-size: 1.4rem;
+        color: var(--text);
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+      .modal-list {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+      }
+      .modal-list li {
+        padding: 0.7rem 0;
+        border-bottom: 1px solid var(--border);
+        font-size: 0.93rem;
+        color: var(--text);
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+      }
+      .modal-list li:last-child {
+        border-bottom: none;
+      }
+      .modal-list li .li-emoji {
+        font-size: 1.1rem;
+      }
+
+      .modal-close {
+        margin-top: 1.2rem;
+        width: 100%;
+        padding: 0.85rem;
+        border: none;
+        border-radius: 12px;
+        background: var(--border);
+        color: var(--muted);
+        font-family: "DM Sans", sans-serif;
+        font-size: 0.95rem;
+        font-weight: 600;
+        cursor: pointer;
+      }
+
+      /* divider between food sections */
+      .section-divider {
+        border: none;
+        border-top: 1px solid var(--border);
+        margin: 0.5rem 0 1.8rem;
+      }
+
+      @keyframes fadeDown {
+        from {
+          opacity: 0;
+          transform: translateY(-14px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(14px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      @keyframes slideUp {
+        from {
+          transform: translateY(100%);
+          opacity: 0;
+        }
+        to {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+      /* ── MEMORY CARDS ── */
+      .memory-board {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 6px;
+        width: 100%;
+      }
+      .memory-card {
+        aspect-ratio: 1;
+        perspective: 600px;
+        cursor: pointer;
+      }
+      .memory-card-inner {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        transform-style: preserve-3d;
+        transition: transform 0.35s ease;
+        border-radius: 10px;
+      }
+      .memory-card.flipped .memory-card-inner,
+      .memory-card.matched .memory-card-inner {
+        transform: rotateY(180deg);
+      }
+      .memory-card-front,
+      .memory-card-back {
+        position: absolute;
+        inset: 0;
+        border-radius: 10px;
+        backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
+      }
+      .memory-card-back {
+        background: linear-gradient(135deg, var(--cyan) 0%, #2a8aaa 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.6rem;
+      }
+      .memory-card-front {
+        transform: rotateY(180deg);
+        background-size: cover;
+        background-position: center;
+      }
+      .memory-card.matched .memory-card-front {
+        outline: 3px solid var(--coral);
+        outline-offset: -3px;
+      }
+      /* ── GÄSTE-KARTE ── */
+      #map-container svg {
+        display: block;
+        width: 100%;
+      }
+
+      path.state {
+        cursor: default;
+        fill: #e8e6de;
+        stroke: #5f5e5a;
+        stroke-width: 1px;
+        transition: fill 0.15s ease;
+      }
+      path.state:hover {
+        fill: #c8c6be;
+      }
+      path.state.highlighted {
+        fill: #b4b2a9;
+      }
+
+      circle.city-marker {
+        cursor: pointer;
+        fill: var(--coral);
+        stroke: #fff;
+        stroke-width: 1.5px;
+      }
+      circle.city-marker:hover {
+        opacity: 0.8;
+      }
+
+      text.city-label {
+        font-size: 11px;
+        fill: var(--text);
+        pointer-events: none;
+        user-select: none;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ══════════ LANDING ══════════ -->
+    <div class="page active" id="home">
+      <div class="top-header">
+        <h1>
+          <span class="h1-jenas">Jenas</span><br />
+          <span class="h1-30">30.</span>
+          <span class="h1-geburt">Geburtstag</span>
+        </h1>
+      </div>
+
+      <div class="photo-wrap">
+        <div class="photo-frame" onclick="cyclePhoto()" style="cursor: pointer">
+          <img id="landing-photo" src="./public/me/1.png" alt="Jena" />
+        </div>
+      </div>
+
+      <div class="btn-group">
+        <button class="btn btn-program" onclick="show('programm')">
+          🗓️ Programm
+        </button>
+        <button class="btn btn-home" onclick="show('information')">
+          ℹ️ Information
+        </button>
+        <button class="btn btn-food" onclick="show('food')">
+          🍽️ Speisen &amp; Getränke
+        </button>
+        <button class="btn btn-misc" onclick="show('langweilig')">
+          😴 Mir ist langweilig
+        </button>
+      </div>
+    </div>
+
+    <!-- ══════════ PROGRAMM ══════════ -->
+    <div class="page" id="programm">
+      <div class="page-header">
+        <button class="back-btn" onclick="show('home')">←</button>
+        <div class="page-title">Das Programm</div>
+      </div>
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-time">17:00</div>
+          <div class="tl-line">
+            <div class="tl-dot"></div>
+            <div class="tl-connector"></div>
+          </div>
+          <div class="tl-card">
+            <div class="emoji">☕</div>
+            <h3>Begrüßung &amp; Empfang</h3>
+            <p>
+              Kaffee + Anstoßen (mit Sekt, Alkoholfreien Sekt oder Fruchtsäften)
+            </p>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">18:00</div>
+          <div class="tl-line">
+            <div class="tl-dot"></div>
+            <div class="tl-connector"></div>
+          </div>
+          <div class="tl-card">
+            <div class="emoji">🎤</div>
+            <h3>Entertainment</h3>
+            <p>Geburtstagsquiz</p>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">19:00</div>
+          <div class="tl-line">
+            <div class="tl-dot"></div>
+            <div class="tl-connector"></div>
+          </div>
+          <div class="tl-card">
+            <div class="emoji">🍽️</div>
+            <h3>Abendessen</h3>
+            <p>Selbstbedienung am Buffet</p>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">20:00</div>
+          <div class="tl-line">
+            <div class="tl-dot"></div>
+            <div class="tl-connector"></div>
+          </div>
+          <div class="tl-card">
+            <div class="emoji">🎂</div>
+            <h3>Kuchen</h3>
+            <p>Selbstbedienung am Kuchen-Buffet</p>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">20:30</div>
+          <div class="tl-line">
+            <div class="tl-dot"></div>
+            <div class="tl-connector"></div>
+          </div>
+          <div class="tl-card">
+            <div class="emoji">🎤</div>
+            <h3>Entertainment</h3>
+            <p>Aufsteh-Spiel</p>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">21:00</div>
+          <div class="tl-line">
+            <div class="tl-dot"></div>
+            <div class="tl-connector"></div>
+          </div>
+          <div class="tl-card">
+            <div class="emoji">🎤</div>
+            <h3>Entertainment</h3>
+            <p>???</p>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">Ab 22:00</div>
+          <div class="tl-line"><div class="tl-dot"></div></div>
+          <div class="tl-card">
+            <div class="emoji">🕺</div>
+            <h3>Open End</h3>
+            <p>Spiele, Musik & Tanzen</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════ SPEISEN & GETRÄNKE ══════════ -->
+    <div class="page" id="food">
+      <div class="page-header">
+        <button class="back-btn" onclick="show('home')">←</button>
+        <div class="page-title">Speisen &amp; Getränke</div>
+      </div>
+
+      <!-- SPEISEN -->
+      <div class="food-section">
+        <div class="food-section-title">🍴 Speisen</div>
+        <div class="food-grid">
+          <div class="food-card expandable" onclick="openModal('modal-snacks')">
+            <div class="f-emoji">🌭</div>
+            <h4>Snacks</h4>
+            <p>Kleinigkeiten am Tisch</p>
+            <span class="expand-hint">Mehr sehen ↓</span>
+          </div>
+
+          <div
+            class="food-card expandable"
+            onclick="openModal('modal-hauptspeisen')"
+          >
+            <div class="f-emoji">🍽️</div>
+            <h4>Hauptspeisen</h4>
+            <p>Verschiedene Curries</p>
+            <span class="expand-hint">Mehr sehen ↓</span>
+          </div>
+
+          <div
+            class="food-card expandable"
+            onclick="openModal('modal-beilagen')"
+          >
+            <div class="f-emoji">🥗</div>
+            <h4>Beilagen</h4>
+            <p>Verschiedene Optionen</p>
+            <span class="expand-hint">Mehr sehen ↓</span>
+          </div>
+
+          <div class="food-card expandable" onclick="openModal('modal-kuchen')">
+            <div class="f-emoji">🎂</div>
+            <h4>Kuchen</h4>
+            <p>Verschiedene Sorten</p>
+            <span class="expand-hint">Mehr sehen ↓</span>
+          </div>
+        </div>
+      </div>
+
+      <hr class="section-divider" />
+
+      <!-- GETRÄNKE -->
+      <div class="food-section">
+        <div class="food-section-title">🥤 Getränke</div>
+        <div class="food-grid">
+          <div class="food-card expandable" onclick="openModal('modal-wasser')">
+            <div class="f-emoji">💧</div>
+            <h4>Wasser &amp; Säfte</h4>
+            <p>Still/Sprudel & verschiedene Sorten</p>
+            <span class="expand-hint">Mehr sehen ↓</span>
+          </div>
+
+          <div class="food-card expandable" onclick="openModal('modal-warm')">
+            <div class="f-emoji">☕</div>
+            <h4>Warme Getränke</h4>
+            <p>Kaffee & Tee</p>
+            <span class="expand-hint">Mehr sehen ↓</span>
+          </div>
+
+          <div
+            class="food-card expandable"
+            onclick="openModal('modal-nichtalkohol')"
+          >
+            <div class="f-emoji">🧃</div>
+            <h4>Nicht-Alkoholisch</h4>
+            <p>Verschiedene Alternativen</p>
+            <span class="expand-hint">Mehr sehen ↓</span>
+          </div>
+
+          <div
+            class="food-card expandable"
+            onclick="openModal('modal-alkohol')"
+          >
+            <div class="f-emoji">🍷</div>
+            <h4>Alkoholisch</h4>
+            <p>Bier, Sekt & Cocktails</p>
+            <span class="expand-hint">Mehr sehen ↓</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════ INFORMATION HUB ══════════ -->
+    <div class="page" id="information">
+      <div class="page-header">
+        <button class="back-btn" onclick="show('home')">←</button>
+        <div class="page-title">Information</div>
+      </div>
+
+      <div class="heimweg-list">
+        <div
+          class="heimweg-card"
+          style="cursor: pointer"
+          onclick="show('werwer')"
+        >
+          <div class="heimweg-icon">🌐</div>
+          <div class="heimweg-body">
+            <h3>Gäste-Weltkarte</h3>
+            <p>Interaktive Karte.</p>
+          </div>
+          <span
+            style="font-size: 1.1rem; color: var(--muted); align-self: center"
+            >›</span
+          >
+        </div>
+
+        <div
+          class="heimweg-card"
+          style="cursor: pointer"
+          onclick="show('kleinkinder')"
+        >
+          <div class="heimweg-icon">👶</div>
+          <div class="heimweg-body">
+            <h3>Kinder</h3>
+            <p>Infos für Eltern.</p>
+          </div>
+          <span
+            style="font-size: 1.1rem; color: var(--muted); align-self: center"
+            >›</span
+          >
+        </div>
+
+        <div
+          class="heimweg-card"
+          style="cursor: pointer"
+          onclick="show('heimweg')"
+        >
+          <div class="heimweg-icon">🚕</div>
+          <div class="heimweg-body">
+            <h3>Wie komme ich heim?</h3>
+            <p>Bus, S-Bahn & Fahrgemeinschaft.</p>
+          </div>
+          <span
+            style="font-size: 1.1rem; color: var(--muted); align-self: center"
+            >›</span
+          >
+        </div>
+
+        <div
+          class="heimweg-card"
+          style="cursor: pointer"
+          onclick="show('wlan')"
+        >
+          <div class="heimweg-icon">ℹ</div>
+          <div class="heimweg-body">
+            <h3>Sonstiges</h3>
+            <p>
+              Weitere Informationen rund um die Themen Getränke, Internet und
+              Co.
+            </p>
+          </div>
+          <span
+            style="font-size: 1.1rem; color: var(--muted); align-self: center"
+            >›</span
+          >
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════ WER IST WER ══════════ -->
+    <div class="page" id="werwer">
+      <div class="page-header">
+        <button class="back-btn" onclick="show('information')">←</button>
+        <div class="page-title">Gäste-Weltkarte</div>
+      </div>
+
+      <div style="width: 100%; max-width: 500px; padding: 0 0 2rem">
+        <div id="map-container" style="width: 100%; position: relative">
+          <!-- SVG injected by D3 -->
+        </div>
+
+        <div
+          id="tooltip"
+          style="
+            margin-top: 8px;
+            font-size: 0.85rem;
+            color: var(--muted);
+            min-height: 20px;
+            text-align: center;
+            font-family: &quot;DM Sans&quot;, sans-serif;
+          "
+        ></div>
+
+        <div style="text-align: center; margin-top: 8px">
+          <button
+            id="back-btn-map"
+            style="
+              display: none;
+              padding: 0.45rem 1.1rem;
+              font-size: 0.82rem;
+              font-family: &quot;DM Sans&quot;, sans-serif;
+              font-weight: 600;
+              color: var(--cyan);
+              background: #e8f7fb;
+              border: 1px solid var(--cyan);
+              border-radius: 8px;
+              cursor: pointer;
+            "
+          >
+            ← Zurück zur Übersicht
+          </button>
+        </div>
+
+        <div
+          id="error"
+          style="
+            color: var(--coral);
+            font-size: 0.82rem;
+            margin-top: 1rem;
+            text-align: center;
+            font-family: &quot;DM Sans&quot;, sans-serif;
+          "
+        ></div>
+      </div>
+    </div>
+
+    <!-- ══════════ KLEINKINDER ══════════ -->
+    <div class="page" id="kleinkinder">
+      <div class="page-header">
+        <button class="back-btn" onclick="show('information')">←</button>
+        <div class="page-title">Kinder</div>
+      </div>
+      <div class="heimweg-list">
+        <div class="heimweg-card">
+          <div class="heimweg-icon">👶</div>
+          <div class="heimweg-body">
+            <h3>Wickelraum</h3>
+            <p>
+              Es gibt einen Wickelraum mit Wickeltisch. Er befindet sich am Ende
+              des Toilettenbereichs.
+            </p>
+          </div>
+        </div>
+
+        <div class="heimweg-card">
+          <div class="heimweg-icon">😴</div>
+          <div class="heimweg-body">
+            <h3>Kinderwagen</h3>
+            <p>
+              Kinderwagen können in einem separaten Raum abgestellt werden.
+              Bitte sprecht das Geburtstagsteam an, damit wir euch den Raum
+              zeigen können.
+            </p>
+          </div>
+        </div>
+
+        <div class="heimweg-card">
+          <div class="heimweg-icon">🎨</div>
+          <div class="heimweg-body">
+            <h3>Unterhaltung</h3>
+            <p>
+              Im Saal finden sich verschiedene Spielsachen, sowie Malbücher +
+              Stifte, gerne einfach hernehmen. Die Terrasse erreicht man über
+              den kleinen Saal, der zur Straße hin abgegrenzt ist und auch zum
+              Spielen geeignet ist.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════ WIE KOMME ICH HEIM? ══════════ -->
+    <div class="page" id="heimweg">
+      <div class="page-header">
+        <button class="back-btn" onclick="show('information')">←</button>
+        <div class="page-title">Wie komme ich heim?</div>
+      </div>
+
+      <div class="heimweg-list">
+        <div class="heimweg-card">
+          <div class="heimweg-icon">🚆</div>
+          <div class="heimweg-body">
+            <h3>S-Bahn</h3>
+            <p>
+              Richtung Stuttgart verkehren ab dem Bahnhof Backnang mehrere
+              S-Bahnlinien (S3, S4) und Regionalzüge (MEX19, RE90). Die S3 fährt
+              alle 30 Minuten um XX:11 Uhr und XX:41 Uhr, fährt aktuell jedoch
+              leider nur bis Stuttgart Bad-Cannstatt. Hier wird empfohlen, mit
+              der S3 bis Waiblingen zu fahren und dort in die S2 Richtung
+              Stuttgart Filderstadt umzusteigen. Die S4 fährt alle 60 Minuten um
+              XX:33 Uhr und fährt bis Stuttgart Hauptbahnhof durch, fährt dafür
+              aber länger. Die Regionalzüge fahren jeweils einmal die Stunde und
+              haben weniger Halte zwischen Backnang und Stuttgart.
+            </p>
+            <span class="heimweg-tag">Haltestelle: Backnang</span>
+          </div>
+        </div>
+
+        <div class="heimweg-card">
+          <div class="heimweg-icon">🚌</div>
+          <div class="heimweg-body">
+            <h3>Bus</h3>
+            <p>
+              Zum S-Bahnhof Backnang (Linien S3, S4 und MEX19, RE90) gelangt man
+              mit der Buslinie 367 Richtung Backnang ZOB. Der Bus kann an der
+              Haltestelle "Großaspach Lerchenstr." genommen werden, die
+              Haltestelle ist in 5 Gehminuten von der Halle erreichbar. Der Bus
+              fährt einmal stündlich, bis 20 Uhr stets um XX:26 Uhr und ab 21
+              Uhr um XX.21 Uhr. Die Fahrt nach Backnang dauert etwa 10 Minuten.
+              Der letzte Bus fährt um 05.21 Uhr.
+            </p>
+            <span class="heimweg-tag">Haltestelle: Großaspach Lerchenstr.</span>
+          </div>
+        </div>
+
+        <div class="heimweg-card">
+          <div class="heimweg-icon">🚗</div>
+          <div class="heimweg-body">
+            <h3>Fahrgemeinschaft</h3>
+            <p>
+              Es fahren einige Gäste mit dem Auto Richtung Stuttgart, viele
+              davon über Bad Cannstatt oder Waiblingen. Bitte melde dich beim
+              Geburtstagsteam, damit wir dich mit anderen Gästen in ähnlichen
+              Richtungen vernetzen können.
+            </p>
+          </div>
+        </div>
+
+        <div class="heimweg-card">
+          <div class="heimweg-icon">🚕</div>
+          <div class="heimweg-body">
+            <h3>Shuttle-Service bis nach Backnang</h3>
+            <p>
+              Gerne fahren wir dich/euch mit dem Auto bis zum Bahnhof Backnang,
+              damit ihr von dort aus mit der S-Bahn weiterfahren könnt. Bitte
+              melde dich beim Geburtstagsteam, damit wir die Fahrten
+              koordinieren können.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════ WLAN ══════════ -->
+    <div class="page" id="wlan">
+      <div class="page-header">
+        <button class="back-btn" onclick="show('information')">←</button>
+        <div class="page-title">Sonstiges</div>
+      </div>
+      <div class="heimweg-list">
+        <div class="heimweg-card">
+          <div class="heimweg-icon">🌐</div>
+          <div class="heimweg-body">
+            <h3>WLAN-Zugang</h3>
+            <p>
+              Zugang zum WLAN ist verfügbar. Bitte wende dich an das
+              Geburtstagsteam für die Zugangsdaten.
+            </p>
+          </div>
+        </div>
+        <div class="heimweg-card">
+          <div class="heimweg-icon">🍸</div>
+          <div class="heimweg-body">
+            <h3>Getränke</h3>
+            <p>
+              Gekühlte Getränke finden sich in der Küche. Gerne könnt ihr euch
+              dort bedienen oder euch euren Drink der Wahl sebst
+              zusammenstellen. Gerne bringen wir euch euer Getränk der Wahl an
+              den Tisch, sprecht uns einfach an.
+            </p>
+          </div>
+        </div>
+        <div class="heimweg-card">
+          <div class="heimweg-icon">🍱</div>
+          <div class="heimweg-body">
+            <h3>Essen zum Mitnehmen</h3>
+            <p>
+              Falls ihr nicht zum Buffet bleiben könnt oder auch nachträglich
+              etwas vom Essen mitnehmen möchtet, stellen wir euch gerne eine Box
+              mit Essen euer Wahl zum Mitnehmen zusammen. Sprecht uns einfach
+              an, damit wir das für euch vorbereiten können.
+            </p>
+          </div>
+        </div>
+        <div class="heimweg-card">
+          <div class="heimweg-icon">🗿</div>
+          <div class="heimweg-body">
+            <h3>Anliegen</h3>
+            <p>
+              Bei sonstigen Fragen, Problemen oder Anliegen wendet euch gerne
+              jederzeit an das Geburtstagsteam, wir helfen euch gerne weiter.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════ MIR IST LANGWEILIG ══════════ -->
+    <div class="page" id="langweilig">
+      <div class="page-header">
+        <button class="back-btn" onclick="show('home')">←</button>
+        <div class="page-title">Mir ist langweilig</div>
+      </div>
+
+      <div style="width: 100%; max-width: 500px; padding: 0 0 3rem">
+        <!-- ── GAME PICKER ── -->
+        <div id="game-picker">
+          <p
+            style="
+              font-size: 0.88rem;
+              color: var(--muted);
+              margin-bottom: 1.4rem;
+            "
+          >
+            Such dir ein Spiel aus 🎮
+          </p>
+          <div style="display: flex; flex-direction: column; gap: 0.85rem">
+            <button
+              class="btn btn-program"
+              style="width: 100%"
+              onclick="showGame('puzzle')"
+            >
+              🧩 Puzzle
+            </button>
+            <button
+              class="btn btn-food"
+              style="width: 100%"
+              onclick="showGame('memory')"
+            >
+              🃏 Memory
+            </button>
+            <button
+              class="btn btn-home"
+              style="width: 100%"
+              onclick="showGame('halle')"
+            >
+              🎯 Sieh' dich im Saal um!
+            </button>
+          </div>
+        </div>
+
+        <!-- ══════════════════════════════
+             PUZZLE GAME
+        ══════════════════════════════ -->
+        <div id="game-puzzle" style="display: none">
+          <div
+            style="
+              display: flex;
+              align-items: center;
+              gap: 0.6rem;
+              margin-bottom: 1.2rem;
+            "
+          >
+            <button
+              onclick="showGame(null)"
+              style="
+                font-size: 0.85rem;
+                font-weight: 600;
+                color: var(--muted);
+                background: none;
+                border: none;
+                cursor: pointer;
+                padding: 0;
+              "
+            >
+              ← Zurück
+            </button>
+          </div>
+
+          <div id="puzzle-intro">
+            <p
+              style="
+                font-size: 0.88rem;
+                color: var(--muted);
+                margin-bottom: 1.4rem;
+              "
+            >
+              Leg ein Puzzle! Schiebe die Teile an die richtige Stelle. 🧩
+            </p>
+            <button
+              class="btn btn-program"
+              style="width: 100%; margin-bottom: 0.8rem"
+              onclick="startPuzzle()"
+            >
+              🎲 Zufälliges Bild laden
+            </button>
+          </div>
+
+          <div id="puzzle-wrap" style="display: none">
+            <div
+              style="
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 0.9rem;
+              "
+            >
+              <span
+                id="puzzle-status"
+                style="
+                  font-size: 0.85rem;
+                  color: var(--muted);
+                  font-weight: 600;
+                "
+              ></span>
+              <button
+                onclick="startPuzzle()"
+                style="
+                  font-size: 0.8rem;
+                  font-weight: 600;
+                  color: var(--cyan);
+                  background: none;
+                  border: none;
+                  cursor: pointer;
+                  padding: 0;
+                "
+              >
+                ↺ Neu starten
+              </button>
+            </div>
+            <div id="puzzle-board"></div>
+          </div>
+
+          <div
+            id="puzzle-win"
+            style="display: none; text-align: center; padding: 2rem 0"
+          >
+            <div style="font-size: 3rem; margin-bottom: 0.8rem">🎉</div>
+            <div
+              style="
+                font-family: &quot;DM Serif Display&quot;, serif;
+                font-size: 1.6rem;
+                color: var(--text);
+                margin-bottom: 0.4rem;
+              "
+            >
+              Gelöst!
+            </div>
+            <p
+              style="
+                font-size: 0.88rem;
+                color: var(--muted);
+                margin-bottom: 1.4rem;
+              "
+            >
+              Du hast das Puzzle gelöst – Respekt!
+            </p>
+            <img
+              id="puzzle-win-img"
+              style="
+                width: 100%;
+                border-radius: 16px;
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+              "
+            />
+            <button
+              class="btn btn-program"
+              style="width: 100%; margin-top: 1.2rem"
+              onclick="startPuzzle()"
+            >
+              🎲 Nochmal
+            </button>
+          </div>
+        </div>
+
+        <!-- ══════════════════════════════
+             MEMORY GAME
+        ══════════════════════════════ -->
+        <div id="game-memory" style="display: none">
+          <div
+            style="
+              display: flex;
+              align-items: center;
+              gap: 0.6rem;
+              margin-bottom: 1.2rem;
+            "
+          >
+            <button
+              onclick="showGame(null)"
+              style="
+                font-size: 0.85rem;
+                font-weight: 600;
+                color: var(--muted);
+                background: none;
+                border: none;
+                cursor: pointer;
+                padding: 0;
+              "
+            >
+              ← Zurück
+            </button>
+          </div>
+
+          <div id="memory-intro">
+            <p
+              style="
+                font-size: 0.88rem;
+                color: var(--muted);
+                margin-bottom: 1.4rem;
+              "
+            >
+              Finde alle Paare! Decke zwei Karten auf – stimmen sie überein,
+              bleiben sie offen. 🃏
+            </p>
+            <button
+              class="btn btn-food"
+              style="width: 100%"
+              onclick="startMemory()"
+            >
+              🎲 Spiel starten
+            </button>
+          </div>
+
+          <div id="memory-wrap" style="display: none">
+            <div
+              style="
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 0.9rem;
+              "
+            >
+              <span
+                id="memory-status"
+                style="
+                  font-size: 0.85rem;
+                  color: var(--muted);
+                  font-weight: 600;
+                "
+              ></span>
+              <button
+                onclick="startMemory()"
+                style="
+                  font-size: 0.8rem;
+                  font-weight: 600;
+                  color: var(--coral);
+                  background: none;
+                  border: none;
+                  cursor: pointer;
+                  padding: 0;
+                "
+              >
+                ↺ Neu starten
+              </button>
+            </div>
+            <div id="memory-board"></div>
+          </div>
+
+          <div
+            id="memory-win"
+            style="display: none; text-align: center; padding: 2rem 0"
+          >
+            <div style="font-size: 3rem; margin-bottom: 0.8rem">🎉</div>
+            <div
+              style="
+                font-family: &quot;DM Serif Display&quot;, serif;
+                font-size: 1.6rem;
+                color: var(--text);
+                margin-bottom: 0.4rem;
+              "
+            >
+              Alle Paare gefunden!
+            </div>
+            <p
+              style="
+                font-size: 0.88rem;
+                color: var(--muted);
+                margin-bottom: 1.4rem;
+              "
+            >
+              Du hast das Memory in <span id="memory-win-moves"></span> Zügen
+              gelöst!
+            </p>
+            <button
+              class="btn btn-food"
+              style="width: 100%; margin-top: 0.4rem"
+              onclick="startMemory()"
+            >
+              🎲 Nochmal
+            </button>
+          </div>
+        </div>
+
+        <!-- ══════════════════════════════
+             SPIELE IN DER HALLE
+        ══════════════════════════════ -->
+        <div id="game-halle" style="display: none">
+          <button
+            onclick="showGame(null)"
+            style="
+              font-size: 0.85rem;
+              font-weight: 600;
+              color: var(--muted);
+              background: none;
+              border: none;
+              cursor: pointer;
+              padding: 0;
+              margin-bottom: 1.2rem;
+              display: block;
+            "
+          >
+            ← Zurück
+          </button>
+          <div class="info-list">
+            <div class="info-item">
+              <div class="info-icon">📈</div>
+              <div class="info-body">
+                <h3>Timeline erraten</h3>
+                <p>
+                  Im Saal findet ihr einige Bilder, eine Schnur und
+                  Wäscheklammern. In welcher Reihenfolge wurden die Bilder
+                  geschossen? Platziert die Bilder entlang der
+                  "Timeline-Schnur". Fehler/Änderungen findet ihr im Nachmacher?
+                  Die Lösung findet ihr am Tisch, aber nicht schummeln!
+                </p>
+              </div>
+            </div>
+
+            <div class="info-item">
+              <div class="info-icon">🎭</div>
+              <div class="info-body">
+                <h3>Finde den Fehler</h3>
+                <p>
+                  Im Saal findet ihr nebeneinander zwei Bilder - links das
+                  Original, rechts den Nachmacher. Die Bilder sehen nahezu
+                  identisch aus - aber eben nur nahezu. Wie viele
+                  Fehler/Änderungen findet ihr im Nachmacher? Die Lösung findet
+                  ihr am Tisch, aber nicht schummeln!
+                </p>
+              </div>
+            </div>
+
+            <div class="info-item">
+              <div class="info-icon">📒</div>
+              <div class="info-body">
+                <h3>Fotobuch</h3>
+                <p>
+                  Im Saal findet sich eine Instant-Kamera und ein Fotobuch.
+                  Hinterlasst gerne ein Foto von euch und paar nette (oder
+                  kritische) Worte - Jena freut sich sehr! Ihr könnt natürlich
+                  auch gerne Erinnerungsfotos für euch selbst schießen und
+                  mitnehmen.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════ MODALS ══════════ -->
+
+    <!-- Snacks -->
+    <div
+      class="modal-backdrop"
+      id="modal-snacks"
+      onclick="closeModalOnBackdrop(event, 'modal-snacks')"
+    >
+      <div class="modal">
+        <div class="modal-handle"></div>
+        <div class="modal-title">🌭 Snacks</div>
+        <ul class="modal-list">
+          <li>
+            <span class="li-emoji">🌯</span> Frühlingsrollen (Mit Fleisch &
+            Vegeratisch)
+          </li>
+          <li><span class="li-emoji">🧀</span> Börek mit Frischkäse</li>
+          <li>
+            <span class="li-emoji">🍌</span> Waippam (Bananenbällchen (Vegan))
+          </li>
+          <li><span class="li-emoji">🍬</span> Süßigkeiten &amp; Chips</li>
+        </ul>
+        <button class="modal-close" onclick="closeModal('modal-snacks')">
+          Schließen
+        </button>
+      </div>
+    </div>
+
+    <!-- Hauptspeisen -->
+    <div
+      class="modal-backdrop"
+      id="modal-hauptspeisen"
+      onclick="closeModalOnBackdrop(event, 'modal-hauptspeisen')"
+    >
+      <div class="modal">
+        <div class="modal-handle"></div>
+        <div class="modal-title">🍽️ Hauptspeisen</div>
+        <ul class="modal-list">
+          <li><span class="li-emoji">🍗</span> Hähnchen-Curry</li>
+          <li><span class="li-emoji">🍗</span> Lamm-Curry</li>
+          <li><span class="li-emoji">🍤</span> Garnelen-Curry</li>
+          <li><span class="li-emoji">🍆</span> Auberginen-Curry</li>
+          <li>
+            <span class="li-emoji">🧀</span> Paneer-Curry (Indischer Käse)
+          </li>
+        </ul>
+        <button class="modal-close" onclick="closeModal('modal-hauptspeisen')">
+          Schließen
+        </button>
+      </div>
+    </div>
+
+    <!-- Beilagen -->
+    <div
+      class="modal-backdrop"
+      id="modal-beilagen"
+      onclick="closeModalOnBackdrop(event, 'modal-beilagen')"
+    >
+      <div class="modal">
+        <div class="modal-handle"></div>
+        <div class="modal-title">🍞 Beilagen</div>
+        <ul class="modal-list">
+          <li><span class="li-emoji">🥗</span> Ofengemüse</li>
+          <li><span class="li-emoji">🍚</span> Reis</li>
+          <li><span class="li-emoji">🍞</span> Naan-Brot</li>
+        </ul>
+        <button class="modal-close" onclick="closeModal('modal-beilagen')">
+          Schließen
+        </button>
+      </div>
+    </div>
+
+    <!-- Kuchen -->
+    <div
+      class="modal-backdrop"
+      id="modal-kuchen"
+      onclick="closeModalOnBackdrop(event, 'modal-kuchen')"
+    >
+      <div class="modal">
+        <div class="modal-handle"></div>
+        <div class="modal-title">🎂 Kuchen</div>
+        <ul class="modal-list">
+          <li><span class="li-emoji">🍋</span> Zitronenkuchen</li>
+          <li><span class="li-emoji">🥜</span> Nusskuchen</li>
+          <li><span class="li-emoji">🌰</span> Dattel-Nusskuchen</li>
+          <li><span class="li-emoji">🍫</span> Schokokuchen</li>
+        </ul>
+        <button class="modal-close" onclick="closeModal('modal-kuchen')">
+          Schließen
+        </button>
+      </div>
+    </div>
+
+    <!-- Wasser & Säfte -->
+    <div
+      class="modal-backdrop"
+      id="modal-wasser"
+      onclick="closeModalOnBackdrop(event, 'modal-wasser')"
+    >
+      <div class="modal">
+        <div class="modal-handle"></div>
+        <div class="modal-title">💧 Wasser &amp; Säfte</div>
+        <ul class="modal-list">
+          <li><span class="li-emoji">💧</span> Stilles Wasser</li>
+          <li><span class="li-emoji">🫧</span> Sprudelwasser</li>
+          <li><span class="li-emoji">🍊</span> Orangensaft</li>
+          <li><span class="li-emoji">🍎</span> Apfelsaft</li>
+          <li><span class="li-emoji">🥭</span> Mangosaft</li>
+        </ul>
+        <button class="modal-close" onclick="closeModal('modal-wasser')">
+          Schließen
+        </button>
+      </div>
+    </div>
+
+    <!-- Warme Getränke -->
+    <div
+      class="modal-backdrop"
+      id="modal-warm"
+      onclick="closeModalOnBackdrop(event, 'modal-warm')"
+    >
+      <div class="modal">
+        <div class="modal-handle"></div>
+        <div class="modal-title">☕ Warme Getränke</div>
+        <ul class="modal-list">
+          <li><span class="li-emoji">☕</span> Kaffee</li>
+          <li><span class="li-emoji">🍵</span> Verschiedene Teesorten</li>
+          <li><span class="li-emoji">🥛</span> Süßer Milchtee</li>
+        </ul>
+        <button class="modal-close" onclick="closeModal('modal-warm')">
+          Schließen
+        </button>
+      </div>
+    </div>
+
+    <!-- Nicht-Alkoholisch -->
+    <div
+      class="modal-backdrop"
+      id="modal-nichtalkohol"
+      onclick="closeModalOnBackdrop(event, 'modal-nichtalkohol')"
+    >
+      <div class="modal">
+        <div class="modal-handle"></div>
+        <div class="modal-title">🧃 Nicht-Alkoholisch</div>
+        <ul class="modal-list">
+          <li><span class="li-emoji">🍹</span> Verschiedene Mocktails</li>
+          <li><span class="li-emoji">🍺</span> Radler Alkoholfrei</li>
+          <li><span class="li-emoji">🍾</span> Hugo Alkoholfrei</li>
+          <li><span class="li-emoji">🍷</span> Rosè Alkoholfrei</li>
+          <li><span class="li-emoji">🍷</span> Trèjus Alkoholfrei</li>
+          <li><span class="li-emoji">🍷</span> Frutto 0.0</li>
+        </ul>
+        <button class="modal-close" onclick="closeModal('modal-nichtalkohol')">
+          Schließen
+        </button>
+      </div>
+    </div>
+
+    <!-- Alkoholisch -->
+    <div
+      class="modal-backdrop"
+      id="modal-alkohol"
+      onclick="closeModalOnBackdrop(event, 'modal-alkohol')"
+    >
+      <div class="modal">
+        <div class="modal-handle"></div>
+        <div class="modal-title">🍷 Alkoholisch</div>
+        <ul class="modal-list">
+          <li><span class="li-emoji">🍺</span> Helles</li>
+          <li><span class="li-emoji">🍺</span> Radler</li>
+          <li>
+            <span class="li-emoji">🍷</span> Wein (Lemberger, Spätburgunder,
+            Lämmler Riesling, Cuvèe Rosè)
+          </li>
+          <li><span class="li-emoji">🍾</span> Sekt</li>
+          <li>
+            <span class="li-emoji">🍹</span> Verschiedene Liköre (Aperol,
+            Lillet, Gin, Whiskey)
+          </li>
+        </ul>
+        <button class="modal-close" onclick="closeModal('modal-alkohol')">
+          Schließen
+        </button>
+      </div>
+    </div>
+
+    <script>
+      function show(pageId) {
+        document
+          .querySelectorAll(".page")
+          .forEach((p) => p.classList.remove("active"));
+        document.getElementById(pageId).classList.add("active");
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+      function openModal(id) {
+        document.getElementById(id).classList.add("open");
+        document.body.style.overflow = "hidden";
+      }
+      function closeModal(id) {
+        document.getElementById(id).classList.remove("open");
+        document.body.style.overflow = "";
+      }
+      function closeModalOnBackdrop(event, id) {
+        if (event.target === document.getElementById(id)) closeModal(id);
+      }
+
+      // ── LANDING PHOTO CYCLE ────────────────────────────────────────
+      const ME_IMAGES = 10; // set this to N, the number of images in public/images/me/
+      let mePhotoIdx = 1;
+
+      function cyclePhoto() {
+        mePhotoIdx = (mePhotoIdx % ME_IMAGES) + 1;
+        document.getElementById("landing-photo").src =
+          `./public/me/${mePhotoIdx}.png`;
+      }
+
+      // ── GAME PICKER ────────────────────────────────────────────────
+      function showGame(game) {
+        document.getElementById("game-picker").style.display = game
+          ? "none"
+          : "block";
+        document.getElementById("game-puzzle").style.display =
+          game === "puzzle" ? "block" : "none";
+        document.getElementById("game-memory").style.display =
+          game === "memory" ? "block" : "none";
+        document.getElementById("game-halle").style.display =
+          game === "halle" ? "block" : "none";
+      }
+
+      // ══════════════════════════════
+      // PUZZLE GAME
+      // ══════════════════════════════
+      const PUZZLE_IMAGES = [
+        //"../public/images/puzzle/1.jpg",
+        "./public/general/1.jpg",
+        "./public/general/2.jpg",
+        "./public/general/3.jpg",
+        "./public/general/4.jpg",
+        "./public/general/5.jpg",
+        "./public/general/6.jpg",
+        "./public/general/7.jpg",
+        "./public/general/8.jpg",
+      ];
+      const GRID = 4; // 4×4
+      const TOTAL = GRID * GRID;
+
+      let puzzleOrder = []; // current positions: puzzleOrder[visualSlot] = correctIndex
+      let selectedSlot = null;
+      let currentImage = null;
+      let moveCount = 0;
+      let imgDrawW = 0; // pixel width of image as rendered across the full board
+      let imgDrawH = 0; // pixel height of image as rendered across the full board
+      let imgOffX = 0; // x offset to center image within board
+      let imgOffY = 0; // y offset to center image within board
+
+      function startPuzzle() {
+        currentImage =
+          PUZZLE_IMAGES[Math.floor(Math.random() * PUZZLE_IMAGES.length)];
+        moveCount = 0;
+
+        puzzleOrder = Array.from({ length: TOTAL }, (_, i) => i);
+        do {
+          shuffle(puzzleOrder);
+        } while (isSolved());
+        selectedSlot = null;
+
+        document.getElementById("puzzle-intro").style.display = "none";
+        document.getElementById("puzzle-win").style.display = "none";
+        document.getElementById("puzzle-wrap").style.display = "block";
+        updateStatus();
+
+        // preload image to get natural dimensions, then render
+        const img = new Image();
+        img.onload = () => {
+          const board = document.getElementById("puzzle-board");
+          const boardSize =
+            Math.floor(
+              (board.offsetWidth ||
+                document.getElementById("puzzle-wrap").offsetWidth) / GRID,
+            ) * GRID;
+          const aspect = img.naturalWidth / img.naturalHeight;
+
+          // scale image so the shorter side fills the board (cover behaviour)
+          if (aspect >= 1) {
+            // landscape: height fills board, width overflows
+            imgDrawH = boardSize;
+            imgDrawW = Math.round(boardSize * aspect);
+          } else {
+            // portrait: width fills board, height overflows
+            imgDrawW = boardSize;
+            imgDrawH = Math.round(boardSize / aspect);
+          }
+          // center the overflow
+          imgOffX = Math.round((imgDrawW - boardSize) / 2);
+          imgOffY = Math.round((imgDrawH - boardSize) / 2);
+
+          renderBoard();
+        };
+        img.src = currentImage;
+      }
+
+      function shuffle(arr) {
+        for (let i = arr.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [arr[i], arr[j]] = [arr[j], arr[i]];
+        }
+      }
+
+      function isSolved() {
+        return puzzleOrder.every((val, idx) => val === idx);
+      }
+
+      function renderBoard() {
+        const board = document.getElementById("puzzle-board");
+        const pieceSize = Math.floor(
+          imgDrawW >= imgDrawH ? imgDrawH / GRID : imgDrawW / GRID,
+        );
+        const boardSize = pieceSize * GRID;
+
+        board.style.cssText = `
+          width: ${boardSize}px;
+          height: ${boardSize}px;
+          display: grid;
+          grid-template-columns: repeat(${GRID}, ${pieceSize}px);
+          grid-template-rows: repeat(${GRID}, ${pieceSize}px);
+          border-radius: 12px;
+          overflow: hidden;
+          box-shadow: 0 4px 20px rgba(0,0,0,0.10);
+          user-select: none;
+        `;
+
+        board.innerHTML = "";
+
+        puzzleOrder.forEach((correctIdx, slot) => {
+          const col = correctIdx % GRID;
+          const row = Math.floor(correctIdx / GRID);
+
+          const piece = document.createElement("div");
+          piece.dataset.slot = slot;
+          piece.style.cssText = `
+            width: ${pieceSize}px;
+            height: ${pieceSize}px;
+            background-image: url('${currentImage}');
+            background-size: ${imgDrawW}px ${imgDrawH}px;
+            background-position: -${imgOffX + col * pieceSize}px -${imgOffY + row * pieceSize}px;
+            cursor: pointer;
+            box-sizing: border-box;
+            transition: box-shadow 0.12s, transform 0.12s;
+          `;
+
+          piece.addEventListener("click", () => onPieceClick(slot));
+          piece.addEventListener("touchend", (e) => {
+            e.preventDefault();
+            onPieceClick(slot);
+          });
+
+          board.appendChild(piece);
+        });
+      }
+
+      function onPieceClick(slot) {
+        if (selectedSlot === null) {
+          // first tap — select this piece
+          selectedSlot = slot;
+          highlightSlot(slot, true);
+        } else if (selectedSlot === slot) {
+          // tapped same piece — deselect
+          highlightSlot(slot, false);
+          selectedSlot = null;
+        } else {
+          // second tap — swap
+          highlightSlot(selectedSlot, false);
+          swapPieces(selectedSlot, slot);
+          selectedSlot = null;
+          moveCount++;
+          updateStatus();
+
+          if (isSolved()) {
+            setTimeout(showWin, 300);
+          }
+        }
+      }
+
+      function swapPieces(slotA, slotB) {
+        [puzzleOrder[slotA], puzzleOrder[slotB]] = [
+          puzzleOrder[slotB],
+          puzzleOrder[slotA],
+        ];
+        renderBoard();
+      }
+
+      function highlightSlot(slot, on) {
+        const board = document.getElementById("puzzle-board");
+        const piece = board.children[slot];
+        if (!piece) return;
+        piece.style.boxShadow = on ? "inset 0 0 0 3px #3AABCF" : "";
+        piece.style.transform = on ? "scale(0.94)" : "";
+        piece.style.zIndex = on ? "2" : "";
+      }
+
+      function updateStatus() {
+        document.getElementById("puzzle-status").textContent =
+          moveCount === 0
+            ? "Tippe ein Teil an, dann ein zweites zum Tauschen."
+            : `${moveCount} Züge`;
+      }
+
+      function showWin() {
+        document.getElementById("puzzle-wrap").style.display = "none";
+        document.getElementById("puzzle-win").style.display = "block";
+        document.getElementById("puzzle-win-img").src = currentImage;
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+      // ══════════════════════════════
+      // MEMORY GAME
+      // ══════════════════════════════
+      const MEMORY_IMAGES = PUZZLE_IMAGES;
+      /* const MEMORY_IMAGES = [
+        "../public/images/puzzle/1.jpg",
+        "../public/images/puzzle/2.jpg",
+        "../public/images/puzzle/3.jpg",
+        "../public/images/puzzle/4.jpg",
+        "../public/images/puzzle/5.jpg",
+        "../public/images/puzzle/6.jpg",
+        "../public/images/puzzle/7.jpg",
+        "../public/images/puzzle/8.jpg",
+      ]; */
+
+      let memoryCards = []; // array of {img, id, matched}
+      let memoryFlipped = []; // up to 2 flipped card indices
+      let memoryLocked = false;
+      let memoryMoves = 0;
+      let memoryMatched = 0;
+      let memoryAutoFlip = null; // timer for auto-flipping first card back
+
+      function startMemory() {
+        // pick 8 random images, duplicate & shuffle
+        const pool = [...MEMORY_IMAGES]
+          .sort(() => Math.random() - 0.5)
+          .slice(0, 8);
+        const pairs = [...pool, ...pool].map((img, i) => ({
+          img,
+          id: i < 8 ? i : i - 8,
+          matched: false,
+        }));
+        pairs.sort(() => Math.random() - 0.5);
+
+        memoryCards = pairs;
+        memoryFlipped = [];
+        memoryLocked = false;
+        memoryMoves = 0;
+        memoryMatched = 0;
+        clearTimeout(memoryAutoFlip);
+        memoryAutoFlip = null;
+
+        document.getElementById("memory-intro").style.display = "none";
+        document.getElementById("memory-win").style.display = "none";
+        document.getElementById("memory-wrap").style.display = "block";
+
+        renderMemory();
+        updateMemoryStatus();
+      }
+
+      function renderMemory() {
+        const board = document.getElementById("memory-board");
+        board.className = "memory-board";
+        board.innerHTML = "";
+
+        memoryCards.forEach((card, idx) => {
+          const el = document.createElement("div");
+          el.className =
+            "memory-card" + (card.matched ? " matched flipped" : "");
+          el.innerHTML = `
+            <div class="memory-card-inner">
+              <div class="memory-card-back">🎂</div>
+              <div class="memory-card-front" style="background-image:url('${card.img}')"></div>
+            </div>`;
+          el.addEventListener("click", () => onMemoryClick(idx));
+          board.appendChild(el);
+        });
+      }
+
+      function onMemoryClick(idx) {
+        if (memoryLocked) return;
+        if (memoryCards[idx].matched) return;
+        if (memoryFlipped.includes(idx)) return;
+        if (memoryFlipped.length === 2) return;
+
+        // flip card
+        memoryFlipped.push(idx);
+        const el = document.getElementById("memory-board").children[idx];
+        el.classList.add("flipped");
+
+        if (memoryFlipped.length === 1) {
+          // start 5-second auto-flip-back timer for the first card
+          memoryAutoFlip = setTimeout(() => {
+            const board = document.getElementById("memory-board");
+            board.children[memoryFlipped[0]].classList.remove("flipped");
+            memoryFlipped = [];
+            memoryAutoFlip = null;
+          }, 5000);
+        }
+
+        if (memoryFlipped.length === 2) {
+          // cancel the auto-flip timer — second card was tapped in time
+          clearTimeout(memoryAutoFlip);
+          memoryAutoFlip = null;
+          memoryMoves++;
+          updateMemoryStatus();
+          checkMemoryMatch();
+        }
+      }
+
+      function checkMemoryMatch() {
+        const [a, b] = memoryFlipped;
+        if (memoryCards[a].id === memoryCards[b].id) {
+          // match!
+          memoryCards[a].matched = true;
+          memoryCards[b].matched = true;
+          const board = document.getElementById("memory-board");
+          board.children[a].classList.add("matched");
+          board.children[b].classList.add("matched");
+          memoryFlipped = [];
+          memoryMatched++;
+          if (memoryMatched === 8) setTimeout(showMemoryWin, 500);
+        } else {
+          // no match — flip back after delay
+          memoryLocked = true;
+          setTimeout(() => {
+            const board = document.getElementById("memory-board");
+            memoryFlipped.forEach((i) =>
+              board.children[i].classList.remove("flipped"),
+            );
+            memoryFlipped = [];
+            memoryLocked = false;
+          }, 1000);
+        }
+      }
+
+      function updateMemoryStatus() {
+        document.getElementById("memory-status").textContent =
+          memoryMoves === 0
+            ? "Tippe eine Karte an zum Starten."
+            : `${memoryMoves} Züge · ${memoryMatched}/8 Paare`;
+      }
+
+      function showMemoryWin() {
+        document.getElementById("memory-wrap").style.display = "none";
+        document.getElementById("memory-win").style.display = "block";
+        document.getElementById("memory-win-moves").textContent = memoryMoves;
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
+    <script>
+      // ══════════════════════════════
+      // GÄSTE-KARTE
+      // ══════════════════════════════
+      (async () => {
+        const tooltip = document.getElementById("tooltip");
+        const errorEl = document.getElementById("error");
+        const backBtn = document.getElementById("back-btn-map");
+
+        const W = 560;
+        const H = Math.round(W * 1.15);
+
+        const svg = d3
+          .select("#map-container")
+          .append("svg")
+          .attr("viewBox", `0 0 ${W} ${H}`);
+
+        const stateLayer = svg.append("g").attr("id", "state-layer");
+        const markerLayer = svg.append("g").attr("id", "marker-layer");
+
+        const cities = [
+          {
+            name: "Stuttgart",
+            lon: 9.177,
+            lat: 48.7758,
+            guests: 12,
+            annotation: { dx: -22, dy: 60 },
+            annotationOffset: { x: 10, y: 0 },
+            stateName: "Baden-Württemberg",
+          },
+          {
+            name: "Mannheim",
+            lon: 8.466,
+            lat: 49.4875,
+            guests: 1,
+            annotation: { dx: 12, dy: 0 },
+            annotationOffset: { x: 10, y: 0 },
+            stateName: "Baden-Württemberg",
+          },
+          {
+            name: "Huthurm",
+            lon: 13.468,
+            lat: 48.538,
+            guests: 5,
+            annotation: { dx: -20, dy: -30 },
+            annotationOffset: { x: 10, y: 0 },
+            stateName: "Bayern",
+          },
+          {
+            name: "München",
+            lon: 11.582,
+            lat: 48.1351,
+            guests: 1,
+            annotation: { dx: 20, dy: 20 },
+            annotationOffset: { x: 10, y: 0 },
+            stateName: "Bayern",
+          },
+          {
+            name: "Düsseldorf",
+            lon: 6.7735,
+            lat: 51.2217,
+            guests: 2,
+            annotation: { dx: 22, dy: 0 },
+            annotationOffset: { x: 10, y: 0 },
+            stateName: "Nordrhein-Westfalen",
+          },
+          {
+            name: "Bad Cannstatt",
+            lon: 9.2167,
+            lat: 48.8089,
+            guests: 6,
+            annotation: { dx: 15, dy: 60 },
+            annotationOffset: { x: 10, y: 0 },
+            stateName: "Baden-Württemberg",
+          },
+          {
+            name: "Schwaikheim",
+            lon: 9.3522,
+            lat: 48.8769,
+            guests: 4,
+            annotation: { dx: -30, dy: -40 },
+            annotationOffset: { x: 10, y: 0 },
+            stateName: "Baden-Württemberg",
+          },
+          {
+            name: "Backnang",
+            lon: 9.4317,
+            lat: 48.9472,
+            guests: 12,
+            annotation: { dx: -25, dy: -60 },
+            annotationOffset: { x: 10, y: 0 },
+            stateName: "Baden-Württemberg",
+          },
+          {
+            name: "Lohhof",
+            lon: 11.59,
+            lat: 48.228,
+            guests: 2,
+            annotation: { dx: -20, dy: 20 },
+            annotationOffset: { x: 10, y: 0 },
+            stateName: "Bayern",
+          },
+          {
+            name: "Augsburg",
+            lon: 10.8978,
+            lat: 48.3705,
+            guests: 3,
+            annotation: { dx: 12, dy: -20 },
+            stateName: "Bayern",
+          },
+          {
+            name: "Fellbach",
+            lon: 9.2758,
+            lat: 48.8254,
+            guests: 3,
+            annotation: { dx: 20, dy: 25 },
+            stateName: "Baden-Württemberg",
+          },
+          {
+            name: "Waiblingen",
+            lon: 9.3167,
+            lat: 48.8303,
+            guests: 4,
+            annotation: { dx: 30, dy: -20 },
+            stateName: "Baden-Württemberg",
+          },
+          {
+            name: "Bamberg",
+            lon: 10.8978,
+            lat: 49.8988,
+            guests: 1,
+            annotation: { dx: 12, dy: 0 },
+            stateName: "Bayern",
+          },
+          {
+            name: "Stuttgart Feuerbach",
+            lon: 9.1683,
+            lat: 48.8133,
+            guests: 3,
+            annotation: { dx: -22, dy: -10 },
+            stateName: "Baden-Württemberg",
+          },
+        ];
+
+        let statesGeoJSON;
+        try {
+          const r1 = await fetch(
+            "https://raw.githubusercontent.com/isellsoap/deutschlandGeoJSON/main/2_bundeslaender/4_niedrig.geo.json",
+          );
+          if (!r1.ok) throw new Error("States: HTTP " + r1.status);
+          statesGeoJSON = await r1.json();
+        } catch (e) {
+          errorEl.textContent =
+            "Kartendaten konnten nicht geladen werden: " + e.message;
+          return;
+        }
+
+        const baseProjection = d3.geoMercator().fitSize([W, H], statesGeoJSON);
+        const basePath = d3.geoPath().projection(baseProjection);
+
+        let zoomed = false;
+
+        function drawStates(pathFn, highlightFn) {
+          stateLayer
+            .selectAll("path")
+            .data(statesGeoJSON.features)
+            .join("path")
+            .attr(
+              "class",
+              (d) =>
+                "state" + (highlightFn && highlightFn(d) ? " highlighted" : ""),
+            )
+            .attr("d", pathFn)
+            .on("mouseover", (e, d) => {
+              tooltip.textContent = d.properties.name || "";
+            })
+            .on("mouseout", () => {
+              tooltip.textContent = "";
+            });
+        }
+
+        function drawAllMarkers(projection) {
+          markerLayer.selectAll("*").remove();
+          cities.forEach((city) => {
+            const [x, y] = projection([city.lon, city.lat]);
+            markerLayer
+              .append("circle")
+              .attr("class", "city-marker")
+              .attr("cx", x)
+              .attr("cy", y)
+              .attr("r", 5)
+              .on("mouseover", function () {
+                tooltip.textContent = city.name;
+              })
+              .on("mouseout", () => {
+                tooltip.textContent = "";
+              })
+              .on("click", () => zoomToCity(city));
+          });
+        }
+
+        function drawZoomedMarkers(clickedCity, projection) {
+          markerLayer.selectAll("*").remove();
+          const bw = 145,
+            bh = 28,
+            br = 5;
+          const pad = { x: 9, y: 9 };
+          const sameCities = cities.filter(
+            (c) =>
+              c.stateName.toLowerCase() === clickedCity.stateName.toLowerCase(),
+          );
+
+          const bubbles = sameCities.map((city) => {
+            const [x, y] = projection([city.lon, city.lat]);
+            const ann = city.annotation || { dx: 12, dy: 0 };
+            return {
+              city,
+              x,
+              y,
+              bx: ann.dx >= 0 ? x + ann.dx : x + ann.dx - bw,
+              by: y + ann.dy - bh / 2,
+            };
+          });
+
+          bubbles.forEach(({ city, x, y, bx, by: byRaw }) => {
+            const isClicked = city.name === clickedCity.name;
+            const by = Math.max(4, Math.min(H - bh - 4, byRaw));
+
+            markerLayer
+              .append("circle")
+              .attr("class", "city-marker")
+              .attr("cx", x)
+              .attr("cy", y)
+              .attr("r", 5)
+              .on("mouseover", () => {
+                tooltip.textContent = city.name;
+              })
+              .on("mouseout", () => {
+                tooltip.textContent = "";
+              });
+
+            markerLayer
+              .append("line")
+              .attr("x1", x)
+              .attr("y1", y)
+              .attr("x2", bx < x ? bx + bw : bx)
+              .attr("y2", by + bh / 2)
+              .attr("stroke", "#d85a30")
+              .attr("stroke-width", 0.75)
+              .attr("stroke-dasharray", "3,2")
+              .attr("pointer-events", "none");
+
+            const bubble = markerLayer.append("g").attr("class", "annotation");
+            bubble
+              .append("rect")
+              .attr("x", bx)
+              .attr("y", by)
+              .attr("width", bw)
+              .attr("height", bh)
+              .attr("rx", br)
+              .attr("fill", "#fff")
+              .attr("stroke", isClicked ? "#d85a30" : "#b4b2a9")
+              .attr("stroke-width", isClicked ? 1.5 : 1);
+            bubble
+              .append("text")
+              .attr("x", bx + pad.x)
+              .attr("y", by + pad.y + 9)
+              .style("font-size", "11px")
+              .style("font-weight", isClicked ? "500" : "400")
+              .attr("fill", "#2c2c2a")
+              .text(city.name + " (" + city.guests + ")");
+          });
+        }
+
+        function zoomToCity(city) {
+          if (zoomed) return;
+          zoomed = true;
+          backBtn.style.display = "inline-block";
+          tooltip.textContent = "";
+
+          const stateFeature = statesGeoJSON.features.find((f) =>
+            (f.properties.name || "")
+              .toLowerCase()
+              .includes(city.stateName.toLowerCase()),
+          );
+          const zoomProjection = d3.geoMercator().fitSize([W, H], stateFeature);
+          const zoomPath = d3.geoPath().projection(zoomProjection);
+
+          drawStates(zoomPath, (d) =>
+            (d.properties.name || "")
+              .toLowerCase()
+              .includes(city.stateName.toLowerCase()),
+          );
+          drawZoomedMarkers(city, zoomProjection);
+        }
+
+        function resetView() {
+          zoomed = false;
+          backBtn.style.display = "none";
+          tooltip.textContent = "";
+          drawStates(basePath, null);
+          drawAllMarkers(baseProjection);
+        }
+
+        backBtn.addEventListener("click", resetView);
+
+        drawStates(basePath, null);
+        drawAllMarkers(baseProjection);
+      })();
+    </script>
+  </body>
+</html>
